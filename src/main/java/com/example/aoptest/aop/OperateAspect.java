@@ -31,10 +31,11 @@ public class OperateAspect {
                 MethodSignature signature = (MethodSignature) pjp.getSignature();
                 RecordOperate annotation = signature.getMethod().getAnnotation(RecordOperate.class);
 
-
+                // 取到Convert的实现方法
                 Class<? extends Convert> convert = annotation.convert();
                 Convert logConvert = convert.newInstance();
 
+                // 返回一个带id的OperateLogDo对象
                 OperateLogDo operateLogDo = logConvert.convert(pjp.getArgs()[0]);
                 operateLogDo.setDesc(annotation.desc());
                 operateLogDo.setResult(result.toString());
